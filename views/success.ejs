@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Payment Successful Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        .success-page {
+            text-align: center;
+            background-color: #fff;
+            padding: 50px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .checkmark {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            margin-bottom: 35px;
+        }
+
+        .checkmark_circle {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #1bb934;
+            animation: fill .4s ease-in-out .4s backwards;
+        }
+
+        .checkmark_stem {
+            position: relative;
+            width: 30px;
+            height: 60px;
+            background-color: #fff;
+            transform-origin: bottom left;
+            transform: rotate(-45deg) translate(-4px, -4px);
+            animation: stem .4s ease-in-out .8s backwards;
+        }
+
+        .checkmark_kick {
+            position: relative;
+            width: 30px;
+            height: 60px;
+            background-color: #fff;
+            transform-origin: bottom left;
+            transform: rotate(45deg) translate(2px, -9px);
+            animation: kick .4s ease-in-out 1.2s backwards;
+        }
+
+        @keyframes fill {
+            0% {
+                transform: scale(0);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes stem {
+            0% {
+                transform: rotate(-45deg) translate(-4px, -4px) scaleY(0);
+            }
+
+            100% {
+                transform: rotate(-45deg) translate(-4px, -4px) scaleY(1);
+            }
+        }
+
+        @keyframes kick {
+            0% {
+                transform: rotate(45deg) translate(2px, -9px) scaleY(0);
+            }
+
+            100% {
+                transform: rotate(45deg) translate(2px, -9px) scaleY(1);
+            }
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 success-page">
+                <div class="checkmark">
+                    <div class="checkmark_circle"></div>
+                    <div class="checkmark_stem"></div>
+                    <div class="checkmark_kick"></div>
+                </div>
+                <h1>Payment Successful</h1>
+                <p>Thank you for your payment. Your transaction has been completed successfully.</p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

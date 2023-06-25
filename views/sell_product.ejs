@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>VintageReads</title>
+  <link rel="stylesheet" type="text/css" href="css/style4.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+      <div class="container-fluid">
+        <a class="navbar-brand fs-1" href="img/index.html">Vintage<span class="text-warning">Reads</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <% if (seller) { %>
+                  <%= seller.name %>
+                    <% } %>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="/seller_products/<%= seller._id %>">My Products</a></li>
+                <li><a class="dropdown-item" href="/logout">Log Out</a></li>
+              </ul>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+    <h1>Sell Your Product</h1>
+    <% if (uploaded===1) { %>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        Product Details Uploaded
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      <% } %>
+
+        <form name="form2" id="form" action="/sell_product" method="post" enctype="multipart/form-data">
+          <input type="hidden" id="id" name="id" value="<%= seller._id %>">
+          <input type="hidden" id="product" name="product" value="<%= seller.interest %>">
+          <input type="hidden" name="sellername" value="<%= seller.name %>">
+          <label for="name">Prodcut Name</label>
+          <input type="text" name="name" id="name">
+          <% if (seller.interest==='book' ) { %>
+            <label for="authorname">Author's Name</label>
+            <input type="text" name="authorname" id="authorname">
+            <% } %>
+              <% if (seller.interest==='book' ) { %>
+                <label for="book_image">Book's Image:</label>
+                <% } else if(seller.interest==='art') {%>
+                  <label for="book_image">Upload Art:</label>                  
+                  <% }  else if(seller.interest==='comics') {%>
+                    <label for="book_image">Comic's Image:</label>
+                  <% } %>
+                  <input type="file" name="book_image" id="book_image">
+                  <label for="description">Description:</label>
+                  <textarea style="resize: none;" name="description" id="description"></textarea>
+                  <label for="price">Price:</label>
+                  <input type="text" name="price" id="price">
+
+                  <input type="submit" value="Submit">
+        </form>
+
+  </header>
+  <%- include('partials/footer') %>

@@ -1,0 +1,42 @@
+<%- include('partials/header') %>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Sold</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% comics.forEach(element=>{ %>
+                    <tr class="align-middle">
+                        <td>
+                            <%= element.name %>
+                        </td>
+                        <td>
+                            <%= element.price %>
+                        </td>
+                        <td>
+                            <%= element.description %>
+                        </td>
+                        <td>
+                            <img src="/uploads/<%= element.image %>" alt="<%= element.name %>">
+                        </td>
+                        <td>
+                            <% if (element.sold == 0) { %>
+                                <p>Not Sold Yet</p>
+                            <% } else {%>
+                                <p>Sold</p>
+                                <% } %>
+                        </td>
+ 
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+
+    </div>
+    <%- include('partials/footer') %>

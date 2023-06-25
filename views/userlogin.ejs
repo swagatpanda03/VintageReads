@@ -1,0 +1,104 @@
+<%- include('partials/header'); -%>
+<div class="container">
+    <div class="image">
+        <img src="img/startse.png" alt="Placeholder Image">
+    </div>
+    <div class="content">
+        <h2>Sell Books, Art & Collectibles Online</h2>
+        <p>VintageReads is a global online website for books, fine art, and collectibles. We facilitate the sale
+            of
+            books,
+            art, and collectibles by connecting sellers with buyers all around the world. What are you waiting
+            for? Sign
+            up
+            today and take the first steps to selling on VintageReads</p>
+    </div>
+</div>
+
+<div class="sellersignup">
+    <h3>Customer Signup</h3>
+
+    <div class="signup">
+
+        <form id="form" style="box-sizing: border-box;" enctype="multipart/form-data">
+            <div style="display: flex">
+                <div style="flex: 50%; padding: 10px;height:300px">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+
+                    <label for="cpassword">Confirm Password:</label>
+                    <input type="password" id="cpassword" name="cpassword" required>
+                    <div id="pass_not_match"></div>
+                    <label class="form-label" for="textAreaExample">Address</label>
+                    <textarea style="resize: none;" class="form-control" name="address" id="address" rows="4"></textarea>
+                </div>
+                <div style="flex: 50%; padding: 10px;height:300px">
+                    <label for="phone">PIN CODE</label>
+                    <input type="text" id="pin" name="pin" required>
+
+                    <label for="phone">Phone Number:</label>
+                    <input type="text" id="phone" name="phone" required>
+
+                    <label for="state">State:</label>
+                    <input type="text" id="state" name="state">
+
+                    <label for="city">City:</label>
+                    <input type="text" name="city" id="city">
+                    <div style="text-align: center;">
+                        <br><button type="submit">Register</button>
+                    </div>
+                    <div>
+                        Already an user?<a href="/login">Login</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById("form");
+    const pass_not_match = document.getElementById('pass_not_match');
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        const cpassword = form.cpassword.value;
+        const phone = form.phone.value;
+        const city = form.city.value;
+        const address = form.address.value;
+        const pincode = form.pin.value;
+        const state = form.state.value;
+
+        pass_not_match.textContent = '';
+        
+        if (password === cpassword) {
+            try {
+                const res = await fetch('/myaccount', {
+                    method: 'POST',
+                    body: JSON.stringify({ name, email, password, phone, city, state, address, pincode }),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await res.json();
+                console.log(data);
+
+                if(data.user) {
+                    location.assign('/user_index');
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        } else {
+           pass_not_match.textContent = 'Passwords do not match'
+        }
+    });
+</script>
+
+<%- include('partials/footer'); -%>

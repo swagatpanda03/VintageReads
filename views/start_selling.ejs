@@ -1,0 +1,92 @@
+<%- include('partials/header'); -%>
+    <div class="container">
+        <div class="image">
+            <img src="img/startse.png" alt="Placeholder Image">
+        </div>
+        <div class="content">
+            <h2>Sell Books, Art & Collectibles Online</h2>
+            <p>VintageReads is a global online website for books, fine art, and collectibles. We facilitate the sale
+                of
+                books,
+                art, and collectibles by connecting sellers with buyers all around the world. What are you waiting
+                for? Sign
+                up
+                today and take the first steps to selling on VintageReads</p>
+        </div>
+    </div>
+
+    <div class="sellersignup">
+        <h3>Seller Signup</h3>
+
+        <div class="sellerform">
+                <form id="form" style="box-sizing: border-box;">
+                    <div style="display: flex">
+                        <div style="flex: 50%; padding: 10px;height:300px">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name" required>
+
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required>
+
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" name="password" required>
+
+                            <label for="cpassword">Confirm Password:</label>
+                            <input type="password" id="cpassword" name="cpassword" required>
+                            <div id="pass_not_match"></div>
+                            <label for="phone">Phone Number:</label>
+                            <input type="text" id="phone" name="phone" required>
+                            <label for="interest">What do you want to sell?</label>
+                            <select id="interest" name="interest" required>
+                                <option value="">Choose an option</option>
+                                <option value="book">Book</option>
+                                <option value="art">Art</option>
+                                <option value="comics">Comics</option>
+                            </select>
+                            <div style="text-align: center;">
+                                <br><button type="submit">Register</button>
+                            </div>
+                            <div>
+                                Already an user?<a href="/seller_login">Login</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('form');
+        let pass_not_match = document.getElementById('pass_not_match');
+        form.addEventListener('submit', async (e)=>{
+            const name = form.name.value;
+            const email = form.email.value;
+            const password = form.password.value;
+            const cpassword = form.cpassword.value;
+            const phone = form.phone.value;
+            const interest = form.interest.value;
+            pass_not_match.textContent = '';
+
+            if (password === cpassword) {
+            try {
+                const res = await fetch('/start-selling', {
+                    method: 'POST',
+                    body: JSON.stringify({ name, email, password, cpassword, phone, interest}),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await res.json();
+                console.log(data);
+
+                if(data.user) {
+                    location.assign('/sell_product');
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        } else {
+           pass_not_match.textContent = 'Passwords do not match'
+        }
+        })
+    </script>
+
+    <%- include('partials/footer'); -%>

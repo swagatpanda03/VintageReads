@@ -1,0 +1,62 @@
+<%- include('partials/header'); -%>
+    <div class="container">
+        <div class="image">
+            <img src="img/startse.png" alt="Placeholder Image">
+        </div>
+        <div class="content">
+            <h2>Sell Books, Art & Collectibles Online</h2>
+            <p>VintageReads is a global online website for books, fine art, and collectibles. We facilitate the sale
+                of
+                books,
+                art, and collectibles by connecting sellers with buyers all around the world. What are you waiting
+                for? Sign
+                up
+                today and take the first steps to selling on VintageReads</p>
+        </div>
+    </div>
+
+    <div class="sellersignup">
+        <h3>Customer Login</h3>
+
+        <div class="login_form">
+
+            <form id="form" style="box-sizing: border-box;" enctype="multipart/form-data">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <div style="text-align: center;">
+                    <br><button type="submit">Login</button>
+                </div>
+                <div>
+                    Not registered Yet?<a href="/myaccount">Register</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('form');
+        form.addEventListener("submit", async (e) => {
+            const email = form.email.value;
+            const password = form.password.value;
+
+            try {
+                const res = await fetch('/login', {
+                    method: 'POST',
+                    body: JSON.stringify({ email, password }),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await res.json();
+                console.log(data);
+
+                if (data.user) {
+                    location.assign('/user_index');
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        });
+    </script>
+    <%- include('partials/footer'); -%>
